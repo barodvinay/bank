@@ -1,6 +1,7 @@
-package com.neo.bank.api;
+package com.neo.bank.api.controller;
 
 
+import com.neo.bank.api.CustomersApi;
 import com.neo.bank.api.model.AccountSummary;
 import com.neo.bank.api.model.BalanceDetails;
 import com.neo.bank.api.model.FundTransferRequest;
@@ -10,7 +11,7 @@ import com.neo.bank.api.model.PayeeResponse;
 import java.util.List;
 import org.springframework.http.ResponseEntity;
 
-public class CustomersApiController implements CustomersApi{
+public class CustomersApiController implements CustomersApi {
     @Override
     public ResponseEntity<FundTransferResponse> customerFundTransfer(String customerId, FundTransferRequest fundTransferRequest) {
         return null;

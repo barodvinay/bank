@@ -7,12 +7,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class BankEmployee {
+public class CustomerPayee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private Long id;
 
-    @Column(name="EMPLOYEE_NAME")
-    private String employeeName;
+    @Column(name="CUSTOMER_ID")
+    private String customerId;
+
+    @Column(name="PAYEE_ID")
+    private String payeeId;
 }
