@@ -1,0 +1,50 @@
+openapi: 3.0.3
+info:
+  title: BAM
+  description: Bank Account Management API;
+  version: "1"
+
+servers:
+  - url: http://localhost:8080/api/v1/
+
+tags:
+  - name: Customers API
+    description: Contains API for functionality profromed by Customers.
+  - name: Employees API
+    description: Contains API for Employees
+
+paths:
+  /customers/balances:
+    get:
+      tags:
+        - Customers API
+      description: Get the Available Balance of the customers.
+      operationId: customersGetBalance
+      parameters:
+        - $ref: '#/components/parameters/customerId'
+      responses:
+        200:
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BalanceDetails'
+
+components:
+  parameters:
+    customerId:
+      in: header
+      name: customerId
+      required: true
+      schema:
+        type: string
+        description: Bank Customer Id
+  schemas:
+    BalanceDetails:
+      type: object
+      properties:
+        customerId:
+          type: string
+        availableBalance:
+          type: integer
+          format: int64

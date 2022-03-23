@@ -1,0 +1,16 @@
+{{#required}}
+{{!if value is not null}}
+    @NotNull{{#vendorExtensions.x-required-message}}(message = "{{vendorExtensions.x-required-message}}"){{/vendorExtensions.x-required-message}}
+{{/required}}{{#isContainer}}{{^isPrimitiveType}}{{^isEnum}}
+    @Valid{{/isEnum}}{{/isPrimitiveType}}{{/isContainer}}{{^isContainer}}{{^isPrimitiveType}}
+    @Valid{{/isPrimitiveType}}{{/isContainer}}
+{{!minLength && maxLength set}}
+{{#minLength}}{{#maxLength}}
+    @Size{{#vendorExtensions.x-size-message}}(message = "{{vendorExtensions.x-size-message}}", min={{minLength}},max={{maxLength}}) {{/vendorExtensions.x-size-message}}{{/maxLength}}{{/minLength}}
+{{!minLength set, maxLength not}}
+{{#minLength}}{{^maxLength}}
+    @Size{{#vendorExtensions.x-size-message}}(message = "{{vendorExtensions.x-size-message}}", min={{minLength}}) {{/vendorExtensions.x-size-message}}{{/maxLength}}{{/minLength}}
+{{!minLength not set, maxLength set}}
+{{^minLength}}{{#maxLength}}
+    @Size{{#vendorExtensions.x-size-message}}(message = "{{vendorExtensions.x-size-message}}", max={{maxLength}}) {{/vendorExtensions.x-size-message}}{{/maxLength}}{{/minLength}}
+{{>beanValidationCore}}
