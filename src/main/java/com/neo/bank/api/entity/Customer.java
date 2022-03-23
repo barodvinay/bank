@@ -1,4 +1,4 @@
-package com.neo.bank.entity;
+package com.neo.bank.api.entity;
 
 import java.math.BigDecimal;
 import javax.persistence.Column;

@@ -8,16 +8,75 @@ servers:
   - url: http://localhost:8080/api/v1/
 
 tags:
-  - name: Customers API
+  - name: Customers
     description: Contains API for functionality profromed by Customers.
-  - name: Employees API
+  - name: Employees
     description: Contains API for Employees
 
 paths:
-  /customers/balances:
+  /customers/fund-transfer:
+    post:
+      tags:
+        - Customers
+      description: Fund Transfer API.
+      operationId: customerFundTransfer
+      parameters:
+        - $ref: '#/components/parameters/customerId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FundTransferRequest'
+      responses:
+        200:
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FundTransferResponse'
+  /customers/payees:
     get:
       tags:
-        - Customers API
+        - Customers
+      description: Get the Register Payee of the customers.
+      operationId: customersGetPayees
+      parameters:
+        - $ref: '#/components/parameters/customerId'
+      responses:
+        200:
+          description: Successful
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PayeeResponse'
+    post:
+      tags:
+        - Customers
+      description: Get the Register Payee of the customers.
+      operationId: customersAddPayee
+      parameters:
+        - $ref: '#/components/parameters/customerId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PayeeRequest'
+      responses:
+        200:
+          description: Successful
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PayeeResponse'
+
+  /customers/available-balance:
+    get:
+      tags:
+        - Customers
       description: Get the Available Balance of the customers.
       operationId: customersGetBalance
       parameters:
@@ -29,7 +88,41 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/BalanceDetails'
-
+  /customers/account-summary:
+    get:
+      tags:
+        - Customers
+      description: Get the Available Balance of the customers.
+      operationId: customersGetAccountSummary
+      parameters:
+        - $ref: '#/components/parameters/customerId'
+      responses:
+        200:
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountSummary'
+  /employees/create-account:
+    post:
+      tags:
+        - Employees
+      description: Account Creation API.
+      operationId: employeeAccountCreate
+      parameters:
+        - $ref: '#/components/parameters/employeeId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAccountRequest'
+      responses:
+        200:
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateAccountResponse'
 components:
   parameters:
     customerId:
@@ -39,6 +132,13 @@ components:
       schema:
         type: string
         description: Bank Customer Id
+    employeeId:
+      in: header
+      name: employeeId
+      required: true
+      schema:
+        type: string
+        description: Bank Employee Id
   schemas:
     BalanceDetails:
       type: object
@@ -48,3 +148,70 @@ components:
         availableBalance:
           type: integer
           format: int64
+    FundTransferRequest:
+      type: object
+      properties:
+        payeeId:
+          type: string
+        amount:
+          type: integer
+          format: int64
+    FundTransferResponse:
+      type: object
+      properties:
+        transactionRefNumber:
+          type: string
+    PayeeResponse:
+      type: object
+      properties:
+        payeeId:
+          type: string
+        payeeName:
+          type: string
+    PayeeRequest:
+      type: object
+      properties:
+        payeeId:
+          type: string
+    AccountSummary:
+      type: object
+      properties:
+        transactionId:
+          type: string
+        transactionDate:
+          type: string
+          format: date
+        transactionStatus:
+          type: string
+        transactionAmount:
+          type: integer
+          format: int64
+    CreateAccountRequest:
+      type: object
+      properties:
+        customerFirstName:
+          type: string
+        customerMiddleName:
+          type: string
+        customerLastName:
+          type: string
+        openingBalance:
+          type: integer
+          format: int64
+        customerGovId:
+          type: string
+        customerGovIdType:
+          type: string
+        customerStreet:
+          type: string
+        customerCity:
+          type: string
+        customerCountry:
+          type: string
+        customerMobNumber:
+          type: string
+    CreateAccountResponse:
+      type: object
+      properties:
+        customerId:
+          type: string
