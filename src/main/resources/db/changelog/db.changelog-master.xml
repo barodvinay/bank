@@ -5,5 +5,47 @@
                       http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.3.xsd
                       http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
-
+    <changeSet id="20220324_EMPLOYEE_TABLE" author="VINAY BAROD">
+        <createTable tableName="BANK_EMPLOYEE">
+            <column autoIncrement="true" name="ID" type="BIGINT">
+                <constraints primaryKey="true" />
+            </column>
+            <column name="EMPLOYEE_NAME" type="varchar" />
+        </createTable>
+    </changeSet>
+    <changeSet id="20220324_CUSTOMER_TABLE" author="vbarod">
+        <createTable tableName="CUSTOMER">
+        <column autoIncrement="true" name="ID" type="BIGINT">
+            <constraints primaryKey="true" />
+        </column>
+        <column name="CUSTOMER_ID" type="varchar" />
+        <column name="AVAILABLE_BALANCE" type="java.math.BigDecimal"/>
+    </createTable>
+    </changeSet>
+    <changeSet id="20220324_UNIQUE_CUSTOMER_ID" author="vbarod">
+        <addUniqueConstraint tableName="customer" columnNames="customer_id"/>
+    </changeSet>
+    <changeSet id="20200324_PAYEE_TABLE" author="vbarod">
+        <createTable tableName="PAYEE">
+        <column autoIncrement="true" name="ID" type="BIGINT">
+            <constraints primaryKey="true" />
+        </column>
+        <column name="CUSTOMER_ID" type="BIGINT" />
+        </createTable>
+        <addForeignKeyConstraint baseTableName="PAYEE" baseColumnNames="CUSTOMER_ID" constraintName="FK_PAYEE_CUSTOMER" referencedTableName="CUSTOMER"
+                                 referencedColumnNames="ID"/>
+    </changeSet>
+    <changeSet id="20200324_TRANSACTION_HISTORY_TABLE" author="vbarod">
+        <createTable tableName="TRANSACTION_HISTORY">
+            <column autoIncrement="true" name="ID" type="BIGINT">
+                <constraints primaryKey="true" />
+            </column>
+            <column name="TRANSACTION_DATE_TIME" type="TIMESTAMP" />
+            <column name="Status" type="varchar"/>
+            <column name="AMOUNT" type="java.math.BigDecimal"/>
+            <column name="CUSTOMER_ID" type="BIGINT"/>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="TRANSACTION_HISTORY" baseColumnNames="CUSTOMER_ID" constraintName="FK_TRANSACTION_HISTORY_CUSTOMER" referencedTableName="CUSTOMER"
+                                 referencedColumnNames="ID"/>
+    </changeSet>
 </databaseChangeLog>
