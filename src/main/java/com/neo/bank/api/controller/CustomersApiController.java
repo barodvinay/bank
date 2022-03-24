@@ -10,7 +10,9 @@ import com.neo.bank.api.model.PayeeRequest;
 import com.neo.bank.api.model.PayeeResponse;
 import java.util.List;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RestController;
 
+@RestController
 public class CustomersApiController implements CustomersApi {
     @Override
     public ResponseEntity<FundTransferResponse> customerFundTransfer(String customerId, FundTransferRequest fundTransferRequest) {
