@@ -4,12 +4,13 @@
                    xsi:schemaLocation="
                       http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.3.xsd
                       http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
-
+<!-- DDL-->
     <changeSet id="20220324_EMPLOYEE_TABLE" author="VINAY BAROD">
         <createTable tableName="BANK_EMPLOYEE">
             <column autoIncrement="true" name="ID" type="BIGINT">
                 <constraints primaryKey="true" />
             </column>
+            <column name="EMPLOYEE_ID" type="varchar" />
             <column name="EMPLOYEE_NAME" type="varchar" />
         </createTable>
     </changeSet>
@@ -47,5 +48,14 @@
         </createTable>
         <addForeignKeyConstraint baseTableName="TRANSACTION_HISTORY" baseColumnNames="CUSTOMER_ID" constraintName="FK_TRANSACTION_HISTORY_CUSTOMER" referencedTableName="CUSTOMER"
                                  referencedColumnNames="ID"/>
+    </changeSet>
+    
+    
+    <!-- DML-->
+    <changeSet id="202203025_DATA_FOR_EMPLOYEE" author="vbarod">
+        <insert tableName="bank_employee">
+            <column name="employee_id" value="E001"/>
+            <column name="employee_name" value="admin"/>
+        </insert>
     </changeSet>
 </databaseChangeLog>

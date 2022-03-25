@@ -15,6 +15,9 @@ public class BankEmployee {
     @Column(name = "ID")
     private Long id;
 
+    @Column(name="EMPLOYEE_ID")
+    private String employeeId;
+
     @Column(name="EMPLOYEE_NAME")
     private String employeeName;
 }

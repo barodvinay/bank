@@ -140,6 +140,29 @@ components:
         type: string
         description: Bank Employee Id
   schemas:
+    RestError:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+          description: The message for the client
+    ResponseMeta:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: string
+          description: The code associated with the successful operation.
+        message:
+          type: string
+          description: The message for the client
     BalanceDetails:
       type: object
       properties:
@@ -213,5 +236,15 @@ components:
     CreateAccountResponse:
       type: object
       properties:
+        meta:
+          $ref: '#/components/schemas/ResponseMeta'
+        data:
+          $ref: '#/components/schemas/CreateAccountData'
+      required:
+        - meta
+        - data
+    CreateAccountData:
+      type: object
+      properties:
         customerId:
-          type: string
+            type: string
