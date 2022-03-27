@@ -123,6 +123,26 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CreateAccountResponse'
+  /employee/manage-account:
+    put:
+      tags:
+        - Employees
+      description: Account Updation API.
+      operationId: employeeAccountUpdate
+      parameters:
+        - $ref: '#/components/parameters/employeeId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateAccountRequest'
+      responses:
+        200:
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateAccountResponse'
 components:
   parameters:
     customerId:
@@ -166,11 +186,20 @@ components:
     BalanceDetails:
       type: object
       properties:
+        meta:
+          $ref: '#/components/schemas/ResponseMeta'
+        data:
+          $ref: '#/components/schemas/BalanceDetailsData'
+      required:
+        - meta
+        - data
+    BalanceDetailsData:
+      type: object
+      properties:
         customerId:
           type: string
         availableBalance:
-          type: integer
-          format: int64
+          type: string
     FundTransferRequest:
       type: object
       properties:
@@ -247,4 +276,32 @@ components:
       type: object
       properties:
         customerId:
-            type: string
+          type: string
+    UpdateAccountRequest:
+      type: object
+      properties:
+        customerId:
+          type: string
+        addFund:
+          type: string
+        updateStatus:
+          type: boolean
+    UpdateAccountResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/ResponseMeta'
+        data:
+          $ref: '#/components/schemas/UpdateAccountData'
+      required:
+        - meta
+        - data
+    UpdateAccountData:
+      type: object
+      properties:
+        customerId:
+          type: string
+        balance:
+          type: string
+        status:
+          type: string

@@ -20,13 +20,13 @@ public class BankEmployeeServiceTest {
     private  BankEmployeeRepository bankEmployeeRepository;
 
     @InjectMocks
-    private BankEmployeeService bankEmployeeService;
+    private BankEmployeeClientService bankEmployeeClientService;
 
     @Test
     void whenGetEmployeeCalledWithValidIdThenExceptValidResult() {
         BankEmployee bankEmployee=new BankEmployee();
         when(bankEmployeeRepository.findByEmployeeId("1")).thenReturn(Optional.of(bankEmployee));
-        BankEmployee result = bankEmployeeService.getEmployee("1");
+        BankEmployee result = bankEmployeeClientService.getEmployee("1");
         assertThat(result).isNotNull();
         verify(bankEmployeeRepository).findByEmployeeId(anyString());
     }

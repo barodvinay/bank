@@ -15,19 +15,19 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class CustomerServiceTest {
+public class CustomerClientServiceTest {
     @Mock
     private CustomerRepository customerRepository;
 
     @InjectMocks
-    private CustomerService customerService;
+    private CustomerClientService customerClientService;
 
     @Test
     public void whenCreateCustomerIsCalledThenExpectCustomerCreation(){
         Customer customer=new Customer();
         customer.setCustomerId("C001");
         when(customerRepository.save(customer)).thenReturn(customer);
-        Customer result=customerService.createCustomer(customer);
+        Customer result=customerClientService.createCustomer(customer);
         assertThat(result).isNotNull();
         verify(customerRepository).save(customer);
     }

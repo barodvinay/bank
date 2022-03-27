@@ -8,12 +8,21 @@ import com.neo.bank.api.model.FundTransferRequest;
 import com.neo.bank.api.model.FundTransferResponse;
 import com.neo.bank.api.model.PayeeRequest;
 import com.neo.bank.api.model.PayeeResponse;
+import com.neo.bank.api.service.CustomerService;
 import java.util.List;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
+import static org.springframework.http.HttpStatus.OK;
+import static org.springframework.http.ResponseEntity.status;
+
 @RestController
+@RequiredArgsConstructor
 public class CustomersApiController implements CustomersApi {
+
+    private CustomerService customerService;
+
     @Override
     public ResponseEntity<FundTransferResponse> customerFundTransfer(String customerId, FundTransferRequest fundTransferRequest) {
         return null;
@@ -31,7 +40,7 @@ public class CustomersApiController implements CustomersApi {
 
     @Override
     public ResponseEntity<BalanceDetails> customersGetBalance(String customerId) {
-        return null;
+        return status(OK).body(customerService.getBalance(customerId));
     }
 
     @Override

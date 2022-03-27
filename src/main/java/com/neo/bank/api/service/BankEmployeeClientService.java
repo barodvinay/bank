@@ -7,16 +7,16 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import static com.neo.bank.api.constant.BankConstant.INVALID_EMLOYEE_MESSAGE;
+import static com.neo.bank.api.constant.BankConstant.INVALID_EMPLOYEE_MESSAGE;
 import static com.neo.bank.api.constant.BankConstant.INVALID_EMPLOYEE_CODE;
 
 @Service
 @RequiredArgsConstructor
-public class BankEmployeeService {
+public class BankEmployeeClientService {
     private final BankEmployeeRepository bankEmployeeRepository;
 
     public BankEmployee getEmployee(String employeeId) {
         return bankEmployeeRepository.findByEmployeeId(employeeId)
-                .orElseThrow(()-> new BankException( INVALID_EMPLOYEE_CODE,INVALID_EMLOYEE_MESSAGE, HttpStatus.UNAUTHORIZED));
+                .orElseThrow(()-> new BankException( INVALID_EMPLOYEE_CODE,INVALID_EMPLOYEE_MESSAGE, HttpStatus.UNAUTHORIZED));
     }
 }
